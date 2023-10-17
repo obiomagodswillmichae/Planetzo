@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "233347013566",
+    "firebase_url": "https://plantezo-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "plantezo",
+    "storage_bucket": "plantezo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233347013566:android:47a88697d1f2f89d0b77ef",
+        "android_client_info": {
+          "package_name": "com.example.planet_b"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233347013566-4hfvppu7fc2g55d39qpmnb9d08ksfs16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPR-L52viL7RkZMlf9VtdRdPsG0egchF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233347013566-4hfvppu7fc2g55d39qpmnb9d08ksfs16.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "233347013566-j7n9s7tfidrdmeppf0hov0mt9riufafc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.planetb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
