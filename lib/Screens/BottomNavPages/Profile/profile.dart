@@ -515,28 +515,13 @@ class ProfilePage extends StatelessWidget {
                                                   context,
                                                   bgColor: Colors.red,
                                                   textColor:
-                                                  AppColor
-                                                      .white,
+                                                  AppColor.white,
                                                   onTap: () {
-                                                    Provider.of<FAuth>(
-                                                        context,
-                                                        listen:
-                                                        false)
-                                                        .clearFirebaseCache()
-                                                        .then(
-                                                            (value) {
-                                                          Provider.of<
-                                                              ModelProviders>(
-                                                            context,
-                                                            listen:
-                                                            false,
-                                                          ).changeCounter(
-                                                              0);
-                                                          nextPageAndRemovePrevious(
-                                                              context,
-                                                              page:
-                                                              const SplashScreen());
+                                                    print('done');
+                                                    FAuth().clearFirebaseCache().then((value) {Provider.of<ModelProviders>(context, listen: false,).changeCounter(0);
+                                                          nextPageAndRemovePrevious(context, page: const SplashScreen());
                                                         });
+
                                                   },
                                                   text: 'Log out',
                                                 ),
@@ -665,68 +650,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Center _buildRingProfile(double maxWith) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        width: maxWith * 0.6,
-        height: maxWith * 0.6,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 3,
-            color: Colors.green,
-          ),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          width: maxWith * 0.5,
-          height: maxWith * 0.5,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              width: 3,
-              color: Colors.red,
-            ),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            width: maxWith * 0.6,
-            height: maxWith * 0.6,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                width: 3,
-                color: Colors.blue,
-              ),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(30),
-              width: maxWith * 0.6,
-              height: maxWith * 0.6,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  width: 3,
-                  color: Colors.purple,
-                ),
-              ),
-              child: Image(image: AssetImage("assets/images/output.png")),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  void signOutAndCloseApp(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // Close the app
-      nextPageAndRemovePrevious(context,  page: LoginPage());
-    } catch (e) {
-      // Handle any errors that occur during sign-out
-      print("Error while signing out: $e");
-    }
-  }
+
 }
 
