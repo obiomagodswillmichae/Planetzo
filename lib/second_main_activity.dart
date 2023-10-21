@@ -5,6 +5,7 @@ import 'package:planet_b/Styles/colors.dart';
 
 import 'Constants/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'Screens/BottomNavPages/Actions/ActionsPages/action_home.dart';
+import 'Screens/BottomNavPages/Enviromental/enviromental_progress.dart';
 import 'Screens/BottomNavPages/Home/home.dart';
 import 'Screens/BottomNavPages/Lessons/LessonsPages/lessons_home.dart';
 import 'Screens/BottomNavPages/Profile/profile.dart';
@@ -35,7 +36,7 @@ class _SecondMainActivityState extends State<SecondMainActivity> {
   /// widget list
   final List<Widget> bottomBarPages = [
     const HomePage(),
-    ActionsPage(),
+    EnviromentalProgress(),
     const LessonsPage(),
     const CommunityPage(groupName: 'Community',),
     const ProfilePage(),
@@ -87,7 +88,7 @@ class _SecondMainActivityState extends State<SecondMainActivity> {
                     Icons.pending_actions,
                     color: Colors.white,
                   ),
-                  itemLabel: 'Action',
+                  itemLabel: 'Progress',
                 ),
                 BottomBarItem(
                   inActiveItem: Icon(

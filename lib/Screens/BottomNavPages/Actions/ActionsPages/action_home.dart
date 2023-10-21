@@ -100,116 +100,112 @@ class _ActionsPageState extends State<ActionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // FloatingActionButton.extended(
-          //   backgroundColor: AppColor.primaryColor,
-          //   onPressed:  _calculateCarbonFootprint, label: Text("Calculate", style: PageService.whitelabelStyle,) ,),
-          PageService.textSpacexL,
-
-        ],
-      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: AppColor.primaryColor,
+        onPressed:  _calculateCarbonFootprint, label: Text("Calculate", style: PageService.whitelabelStyle,) ,),
       appBar: AppBar(
         elevation: 0,
+        leading: BackButton(color: AppColor.black,),
         title: Text("Action", style: PageService.bigHeaderStyle,),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Enter your information to calculate your carbon footprint:',
-                style: PageService.labelStyle,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child:  Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Enter your information to calculate your carbon footprint:',
+                    style: PageService.labelStyle,
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Car mileage (miles per gallon)',
+                    ),
+                    onChanged: (value) {
+                      _carMileage = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Car usage time (hours per week)',
+                    ),
+                    onChanged: (value) {
+                      _carUsageTime = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Public transport usage time (hours per week)',
+                    ),
+                    onChanged: (value) {
+                      _publicTransportUsageTime = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Flights per year',
+                    ),
+                    onChanged: (value) {
+                      _flightsPerYear = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Meat consumption (pounds per week)',
+                    ),
+                    onChanged: (value) {
+                      _meatConsumption = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Plastic usage (pounds per week)',
+                    ),
+                    onChanged: (value) {
+                      _plasticUsage = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Electricity usage (kilowatt-hours per month)',
+                    ),
+                    onChanged: (value) {
+                      _electricityUsage = double.tryParse(value) ?? 0;
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
+                  // customButton(context, onTap:  _calculateCarbonFootprint, text: 'Calculate', bgColor: AppColor.primaryColor, textColor: AppColor.white),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Your carbon footprint is:',
+                    style: PageService.labelStyle,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    '${_totalCarbonFootprint.toStringAsFixed(2)} tons of CO2 per year',
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.pink,
+                    ),
+                  ),
+                  PageService.textSpacexxL,
+                ],
               ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Car mileage (miles per gallon)',
-                ),
-                onChanged: (value) {
-                  _carMileage = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Car usage time (hours per week)',
-                ),
-                onChanged: (value) {
-                  _carUsageTime = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Public transport usage time (hours per week)',
-                ),
-                onChanged: (value) {
-                  _publicTransportUsageTime = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Flights per year',
-                ),
-                onChanged: (value) {
-                  _flightsPerYear = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Meat consumption (pounds per week)',
-                ),
-                onChanged: (value) {
-                  _meatConsumption = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Plastic usage (pounds per week)',
-                ),
-                onChanged: (value) {
-                  _plasticUsage = double.tryParse(value) ?? 0;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Electricity usage (kilowatt-hours per month)',
-                ),
-                onChanged: (value) {
-                  _electricityUsage = double.tryParse(value) ?? 0;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              // customButton(context, onTap:  _calculateCarbonFootprint, text: 'Calculate', bgColor: AppColor.primaryColor, textColor: AppColor.white),
-              const SizedBox(height: 16.0),
-              Text(
-                'Your carbon footprint is:',
-                style: PageService.labelStyle,
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                '${_totalCarbonFootprint.toStringAsFixed(2)} tons of CO2 per year',
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pink,
-                ),
-              ),
-           PageService.textSpacexxL,
-              customButton(context, onTap: _calculateCarbonFootprint, text: 'Calculate', bgColor: AppColor.primaryColor, textColor: AppColor.white)
-            ],
-          ),
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

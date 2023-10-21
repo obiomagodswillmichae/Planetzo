@@ -111,5 +111,12 @@ class FAuth {
       print("Error signing out: $e");
     }
   }
+  Future clearFirebaseCache() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      return;
+    }
+  }
 
 }
