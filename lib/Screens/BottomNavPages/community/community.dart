@@ -95,7 +95,7 @@ class _CommunityPageState extends State<CommunityPage> {
           label: Text("Add", style: PageService.whitelabelStyle,)),
       appBar: AppBar(
         elevation: 0,
-        title: Text("Action and Collaboration", style: PageService.bigHeaderStyle,),
+        title: Text("Community", style: PageService.bigHeaderStyle,),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: actionStream,
@@ -109,7 +109,7 @@ class _CommunityPageState extends State<CommunityPage> {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Text('No messages in this group.'); // Display a message for no messages.
+            return Center(child:  Text('No messages in this group.', style: PageService.labelStyle,)); // Display a message for no messages.
           }
 
           return Padding(
