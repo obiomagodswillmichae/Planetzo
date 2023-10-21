@@ -18,11 +18,25 @@ import '../../../Styles/colors.dart';
 import '../../../Utils/page_service.dart';
 import '../../../Widgets/custom_button.dart';
 import '../../CarbornFootprint/carborn_get_started.dart';
+import '../../community_overview.dart';
 import '../Actions/tips_screen.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  void navigateToEnvironmentalStatistics(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EnvironmentalStatisticsScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -396,53 +410,43 @@ class ProfilePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        showDialog(context: context, builder: (context) => AlertDialog(
-                          title: Text("Coming Soon", style: PageService.bigHeaderStyle,),
-                          actions: [
-                            TextButton(onPressed: () {
-                              Navigator.pop(context);
-                            }, child: Text("Ok", style: PageService.bigHeaderStyle,))
-                          ],
-                        ),);
+                        nextPage(context, page: EnvironmentalStatisticsScreen());
                       },
                       child: Card(
-
                         elevation: 5,
                         child: Row(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    5, 0, 10, 0),
-                                child: Icon(
-                                  MdiIcons.share,
-                                  color: AppColor.primaryColor,
-                                  size: 30,
-                                )),
+                              padding: EdgeInsets.fromLTRB(5, 0, 10, 0),
+                              child: Icon(
+                                Icons.group,
+                                color: AppColor.primaryColor,
+                                size: 30,
+                              ),
+                            ),
                             const SizedBox(
                               height: 60,
                               child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          0, 0, 0, 3),
-                                      child: Text(
-                                        'Share to friends',
-                                        style: TextStyle(
-                                            fontWeight:
-                                            FontWeight.bold,
-                                            fontSize: 12),
-                                      )),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
+                                    child: Text(
+                                      'Community User Statics',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
                                   SizedBox(
-                                      child: Text(
-                                        'Modify your profile details',
-                                        style: TextStyle(fontSize: 10),
-                                      )),
+                                    child: Text(
+                                      'View Community User Statics',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -456,6 +460,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     SizedBox(height: 5,),
                     GestureDetector(
                       onTap: () {
@@ -649,7 +654,6 @@ class ProfilePage extends StatelessWidget {
       ],
     );
   }
-
 
 }
 
