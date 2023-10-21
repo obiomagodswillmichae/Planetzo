@@ -15,6 +15,7 @@ class EnviromentalProgress extends StatefulWidget {
 
 class _EnviromentalProgressState extends State<EnviromentalProgress> {
   Color carbonFootprintColor = Colors.red;
+  bool showWarning = true;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _EnviromentalProgressState extends State<EnviromentalProgress> {
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.only(
-                  top: 0, bottom: 30, left: 10, right: 10),
+                  top: 0, bottom: 0, left: 10, right: 10),
               child: Column(
                 children: [
                   Container(
@@ -52,42 +53,57 @@ class _EnviromentalProgressState extends State<EnviromentalProgress> {
                       ],
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: SfCircularChart(
-                      legend: Legend(isVisible: true), // Enable the legend
-                      title: ChartTitle(
-                        alignment: ChartAlignment.near,
-                        text: 'Environmental Statics',
-                        textStyle: PageService.labelStyle,
-                      ),
-                      series: <CircularSeries>[
-                        PieSeries<UserData, String>(
-                          dataSource: <UserData>[
-                            UserData('Carbon ',
-                                user.profile.carbonFootprint, Colors.red),
-                            UserData('Transport', user.profile.transport,
-                                Colors.green),
-                            UserData('Energy ', user.profile.home,
-                                Colors.orange),
-                            UserData('Food Choices', user.profile.food,
-                                Colors.purple),
-                            UserData('Awareness',
-                                user.profile.bushBurning, Colors.yellow),
-                          ],
-                          xValueMapper: (UserData data, _) => data.category,
-                          yValueMapper: (UserData data, _) => data.value,
-                          pointColorMapper: (UserData data, _) => data.color,
-                          dataLabelMapper: (UserData data, _) {
-                            if (data.category == 'Carbon Footprint') {
-                              final totalCarbonFootprint =
-                                  user.profile.carbonFootprint;
-                              if (totalCarbonFootprint > 50) {
-                                return 'Warning: ${data.category}: $totalCarbonFootprint';
-                              }
-                            }
-                            return '${data.category}: ${data.value}';
-                          },
-                          dataLabelSettings: DataLabelSettings(isVisible: true),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 250,
+                          child: SfCircularChart(
+                            title: ChartTitle(
+                              alignment: ChartAlignment.near,
+                              text: 'Environmental Statics',
+                              textStyle: PageService.labelStyle,
+                            ),
+                            series: <CircularSeries>[
+                              PieSeries<UserData, String>(
+                                dataSource: <UserData>[
+                                  UserData('Carbon ',
+                                      user.profile.carbonFootprint, Colors.red),
+                                  UserData('Transport', user.profile.transport,
+                                      Colors.green),
+                                  UserData('Energy ', user.profile.home,
+                                      Colors.orange),
+                                  UserData('Food Choices', user.profile.food,
+                                      Colors.purple),
+                                  UserData('Awareness',
+                                      user.profile.bushBurning, Colors.yellow),
+                                ],
+                                xValueMapper: (UserData data, _) => data.category,
+                                yValueMapper: (UserData data, _) => data.value,
+                                pointColorMapper: (UserData data, _) => data.color,
+                                dataLabelMapper: (UserData data, _) {
+                                  if (data.category == 'Carbon Footprint') {
+                                    final totalCarbonFootprint =
+                                        user.profile.carbonFootprint;
+                                    if (totalCarbonFootprint > 50) {
+                                      return 'Warning: ${data.category}: $totalCarbonFootprint';
+                                    }
+                                  }
+                                  return '${data.category}: ${data.value}';
+                                },
+                                dataLabelSettings: DataLabelSettings(isVisible: true),
+                              ),
+                            ],
+                          ),
                         ),
+                        if (user.profile.carbonFootprint > 50)
+                          Center(
+                            child: Text(
+                              'Carbon Footprint value is too high!\ntake major action',
+                              style: TextStyle(color: Colors.red, fontSize: 18),
+
+                            ),
+                          ),
+                        PageService.textSpaceL,
                       ],
                     ),
                   ),
@@ -121,23 +137,20 @@ class _EnviromentalProgressState extends State<EnviromentalProgress> {
                         xValueMapper: (UserData data, _) => data.category,
                         yValueMapper: (UserData data, _) => data.value,
                         pointColorMapper: (UserData data, _) {
-                          if (data.category == 'Carbon Footprint' &&
-                              showWarning) {
-                            return Colors
-                                .red; // Show in red if value is greater than 50
+                          if (data.category == 'Carbon ' && user.profile.carbonFootprint > 50) {
+                            return Colors.red; // Show the "Carbon" data in red if value is greater than 50
                           } else {
-                            return Color(
-                                0xff358749); // Show in blue for other values
+                            return data.color; // Use the specified colors for other data
                           }
                         },
                         dataLabelSettings: DataLabelSettings(isVisible: true),
                       ),
                     ],
-                  )
+                  ),
 
-// ... Your existing code ...
 
-// ... Your existing code ...
+
+
                 ],
               ),
             ),
@@ -145,6 +158,12 @@ class _EnviromentalProgressState extends State<EnviromentalProgress> {
         ],
       ),
     );
+  }
+  void showErrorMessage() {
+    final user = Provider.of<AuthenticationProvider>(context).currentUser;
+    if (showWarning && user.profile.carbonFootprint > 50) {
+      Text("Carbon Footprint value is too high!");
+    }
   }
 }
 
